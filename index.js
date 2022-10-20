@@ -199,5 +199,38 @@ const db = mysql.createConnection(
 			  mainMenu();
 		  });
 	  };
+	  
+	const updateEmployee = async () => {
+		const [roles] = await db.query('SELECT * FROM role');
+		const roleList = role.map((eachRole)=> {
+			return {name: eachRole.title, value: eachRole.id};
+		});
+		const [employees] = await db.query('SELECT * FROM employee');
+		const employeeList = employees.map((eachEmployee)=> {
+			return {name: eachEmployee.first_name + " " + eachEmployee.last_name, value: eachEmployee.id};
+		});
+		await prompt([
+			{
+				type: 'list',
+				message: "Which employee's role do you want to update?",
+				name: 'employee_name',
+				choices: employeeList
+			},
+			{
+				type: 'list',
+				message: "Which role do you want to assign the selected employee?",
+				name: 'employee_role',
+				choices: roleList
+			},
+		])
+		.then(function (answers){
+			db.query('UPDATE employee SET role_id = ? WHERE id = ?', [
+				answers.emplyee_role,
+				answers.eployee_name
+			]);
+			console.log( ' Employee Updated ' );
+			mainMenu();
+		});
+	};
   };
   mainMenu();
