@@ -21,7 +21,10 @@ VALUES
 INSERT INTO employee
 	(first_name, last_name, role_id, manager_id)
 VALUES
-	('Alex', 'Chen' 1, NULL),
-	('Lindsay', 'Reiner' 2, NULL),
-	('Caleb', 'Crum' 1, 1);
+	('Harry', 'Potter' 1, NULL),
+	('Ron', 'Wesley' 2, NULL),
+	('Draco', 'Malfoy' 1, 1),
+	('Hermione', 'Grainger', 3, 3)
+	('Albus', 'Dumbledore', 4, NULL)
+	('Severus', 'Snape', 5, NULL)
 	
