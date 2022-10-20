@@ -104,6 +104,23 @@ const db = mysql.createConnection(
 		mainMenu();
   };
 
+  const addDepartment = async () => {
+	  await prompt([
+		  {
+			  type: 'input',
+			  message: "What is the name of the department?",
+			  name: 'department_name'
+		  },
+	  ])
+	  .then(function (answers) {
+		  db.query('INSERT INTO department SET ?' , {
+			  department_name: answers.department_name
+		  });
+		  console.log( 'Department Added');
+		  mainMenu();
+	  });
+  };
+
   	const addEmployee = async () => {
 		  const [roles] = await db.query("SELECT * FROM role");
 		  const roleList = roles.map((eachRole)=> {
