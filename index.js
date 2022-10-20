@@ -116,8 +116,42 @@ const db = mysql.createConnection(
 		  db.query('INSERT INTO department SET ?' , {
 			  department_name: answers.department_name
 		  });
-		  console.log( 'Department Added');
+		  console.log( 'Department Added' );
 		  mainMenu();
+	  });
+  };
+
+  const addRole = async () => {
+	  const [department] = await db.query('SELECT * FROM department');
+	  const departmentList = department.map((eachDepartment)=> {
+		  return {department_name: eachDepartment.department_name, value: eachDepartment.id};
+	  });
+	  await prompt([
+		  {
+			  type: 'input',
+			  message: "What is the name of the role?",
+			  name: 'role'
+		  },
+		  {
+			  type: 'input',
+			  message: "What is the salary of the role?",
+			  name: 'salary'
+		  },
+		  {
+			  type: 'list',
+			  message: "Which department does the role belong to?",
+			  name: 'role_department',
+			  choices: departmentList
+		  }
+	  ])
+	  .then(function (answers) {
+		db.query('INSERT INTO role SET ?', {
+			title: answers.role,
+			salary: answers.salary,
+			department_id: answers.role_department
+		});
+		console.log( 'Role Added' );
+		mainMenu();
 	  });
   };
 
