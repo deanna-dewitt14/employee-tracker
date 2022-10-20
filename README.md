@@ -17,7 +17,7 @@ Installation
 3. Run the application from the command node index.js
 
 
-<img width="5" alt="employee tracker" src="https://user-images.githubusercontent.com/109932251/196855700-bd1c29a8-b391-4b21-9afd-05364ccfd6f8.png">
+<img width="743" alt="employee tracker" src="https://user-images.githubusercontent.com/109932251/196855913-8d723e17-f9a8-4078-91c1-b9a74e240486.png">
 
 
 
