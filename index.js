@@ -92,4 +92,61 @@ const db = mysql.createConnection(
 		mainMenu();
 	};
 
+	const viewDepartment = async () => {
+		const [departmentData] = await db.query("SELECT * FROM department");
+		console.table(departmentData);
+		mainMenu();
+	};
+
+	const viewRoles = async () => {
+		const [roleData] = await db.query("SELECT * FROM role");
+		console.table(roleData);
+		mainMenu();
+  };
+
+  	const addEmployee = async () => {
+		  const [roles] = await db.query("SELECT * FROM role");
+		  const roleList = roles.map((eachRole)=> {
+			  return {name: eachRole.title, value: eachRole.id};
+		  });
+		  const [employee] = await db.query("SELECT * FROM employee");
+		  const employeeList = employee.map((eachEmployee)=> {
+			  return {name: eachEmployee.first_name + " " + eachEmployee.last_name, value: eachEmployee.id};
+		  });
+		  await prompt ([
+			  {
+				  type: 'input',
+				  message: "What is the employee's first name?",
+				  name: 'first_name'
+			  },
+			  {
+				  type: 'input',
+				  message: "What is the employee's last name?",
+				  name: 'last_name'
+			  },
+			  {
+				  type: 'rawlist',
+				  message: "What is the employee's role?",
+				  name: 'role_id',
+				  choices: roleList,
+			  },
+			  {
+				  type: 'list',
+				  name: 'manager_id',
+				  message: "Who is the employee's manager?",
+				  choices: employeeList,
+			  }
+		  ])
+		  .then(function (answers){
+			  db.query('INSERT INTO employee Set ?' , {
+				  first_name: answers.first_name,
+				  last_name: answers.last_name,
+				  role_id: answers.role_id,
+				  manager_id: answers.manager_id
+			  });
+			  console.log('Your Employee has been added');
+			  mainMenu();
+		  });
+	  };
+  };
   mainMenu();
